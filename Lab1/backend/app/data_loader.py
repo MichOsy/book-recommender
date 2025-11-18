@@ -13,9 +13,9 @@ def load_books():
     grouped_tags = merged.groupby("goodreads_book_id")["tag_name"].apply(lambda x: " ".join(x))
 
     books = books.merge(grouped_tags, left_on="id", right_index=True, how="left")
-    books["tag_name"] = books["tag_name"].fillna("")
 
     books["text"] = (
+        books["title"].fillna("") + " " +
         books["authors"].fillna("") + " " +
         books["tag_name"].fillna("")
     )
@@ -24,4 +24,6 @@ def load_books():
 
 
 if __name__ == "__main__":
-    print(load_books())
+    books_ = load_books()
+    # print(books["isbn13"])
+    # print((books["isbn13"] == '').sum())

@@ -23,7 +23,7 @@ class BookRecommender:
 
         similar_indices = similarities.argsort()[::-1][1:top_n+1]
 
-        results = self.books.iloc[similar_indices][["book_id", "title", "authors"]]
+        results = self.books.iloc[similar_indices][["book_id", "title", "authors", "best_book_id"]]
 
         return results.to_dict(orient="records")
 
