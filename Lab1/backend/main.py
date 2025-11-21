@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Query
-from app.data_loader import load_books  # noqa
-from app.recommender import BookRecommender  # noqa
+from app.data_loader import load_books
+from app.recommender import BookRecommender
 
 app = FastAPI()
 
