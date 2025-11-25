@@ -1,16 +1,14 @@
 import requests
 
-API_URL = "http://localhost:8000"
+API_URL = "http://localhost:8001"
 
 
 def get_books(title="", author=""):
     params = {"title": title, "author": author}
     r = requests.get(f"{API_URL}/books", params=params)
     data = r.json()
-
     if not data.get("books"):
         return {"too_many": True, "count": data.get("count", 0), "books": []}
-
     return {"too_many": False, "count": data.get("count", 0), "books": data["books"]}
 
 
