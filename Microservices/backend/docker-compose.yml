@@ -8,13 +8,9 @@ services:
       - RECOMMENDER_URL=http://recommender-svc:8002
     depends_on:
       - recommender-svc
-    volumes:
-      - ./data:/data:ro
 
   recommender-svc:
     build: ./recommender-svc
     container_name: recommender-svc
     ports:
       - "8002:8002"
-    volumes:
-      - ./data:/data:ro
