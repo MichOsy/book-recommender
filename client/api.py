@@ -1,6 +1,7 @@
 import requests
 
-API_URL = "http://localhost:8001"
+API_URL = "https://book-recommender-production-3009.up.railway.app"  # monolith
+# API_URL = "https://app-production-7be6.up.railway.app"  # services
 
 
 def get_books(title="", author=""):
@@ -25,5 +26,6 @@ def get_top_books(start_year=None, end_year=None, limit=50):
         params["end_year"] = end_year
     if limit is not None:
         params["limit"] = limit
+
     r = requests.get(f"{API_URL}/top_books", params=params)
     return r.json()
