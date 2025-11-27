@@ -3,9 +3,7 @@ import requests
 import concurrent.futures
 
 
-def load_test(api_url, endpoint, params=None, concurrency=200, requests_total=1000):
-    params = params or {}
-
+def load_test(api_url, endpoint, concurrency=200, requests_total=1000):
     results = {
         "success": 0,
         "errors": 0,
@@ -15,7 +13,7 @@ def load_test(api_url, endpoint, params=None, concurrency=200, requests_total=10
     def do_request():
         start = time.perf_counter()
         try:
-            r = requests.get(f"{api_url}{endpoint}", params=params, timeout=10)
+            r = requests.get(f"{api_url}{endpoint}", timeout=10)
             r.raise_for_status()
             elapsed = time.perf_counter() - start
             return True, elapsed
@@ -53,10 +51,11 @@ def load_test(api_url, endpoint, params=None, concurrency=200, requests_total=10
 
 
 if __name__ == "__main__":
-    API_URL = "https://book-recommender-production-b998.up.railway.app"
+    API_URL = "https://book-recommender-production-3009.up.railway.app"  # monolith
+    # API_URL = "https://app-production-7be6.up.railway.app"  # services
     res1 = load_test(API_URL, "/top_books?start_year=2000&end_year=2025&limit=50")
     print(res1)
-    res2 = load_test(API_URL, "/books", params={"title": "harry"})
+    res2 = load_test(API_URL, "/books?title=harry")
     print(res2)
     res3 = load_test(API_URL, "/recommend/2767052")
     print(res3)
